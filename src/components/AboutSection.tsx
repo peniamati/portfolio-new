@@ -1,27 +1,14 @@
 import { motion } from "framer-motion";
 import { Code2, ShoppingCart, Bot } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const highlights = [
-  {
-    icon: Code2,
-    title: "Desarrollo Frontend",
-    desc: "Experiencia en React, TypeScript y ecosistemas modernos de desarrollo web.",
-  },
-  {
-    icon: ShoppingCart,
-    title: "E-commerce & Pymes",
-    desc: "Soluciones digitales enfocadas en plataformas de venta y gestión para pequeñas empresas.",
-  },
-  {
-    icon: Bot,
-    title: "Integración de IA",
-    desc: "Implementación de herramientas de inteligencia artificial para optimizar flujos de trabajo.",
-  },
-];
+const icons = [Code2, ShoppingCart, Bot];
 
 const AboutSection = () => {
+  const { t } = useLanguage();
+
   return (
-    <section id="about" className="py-24 lg:py-32">
+    <section id="about" className="py-24 lg:py-32" aria-label={t.about.title}>
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -29,55 +16,54 @@ const AboutSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <p className="font-mono text-sm text-primary mb-2">// sobre mí</p>
+          <p className="font-mono text-sm text-primary mb-2">{t.about.tag}</p>
           <h2 className="text-3xl sm:text-4xl font-bold font-display mb-8">
-            Un poco de mi historia
+            {t.about.title}
           </h2>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                Comencé mi carrera profesional en{" "}
-                <span className="text-foreground font-medium">Inoxilab</span>,
-                donde desarrollé mis primeras habilidades en frontend y participé
-                en proyectos de desarrollo de software a medida.
+                {t.about.p1Start}{" "}
+                <span className="text-foreground font-medium">{t.about.p1Company}</span>
+                {t.about.p1End}
               </p>
               <p>
-                Posteriormente trabajé en el{" "}
-                <span className="text-foreground font-medium">sector aeroportuario</span>,
-                donde adquirí experiencia en entornos de alta exigencia operativa
-                y sistemas críticos, hasta febrero de 2025.
+                {t.about.p2Start}{" "}
+                <span className="text-foreground font-medium">{t.about.p2Company}</span>
+                {t.about.p2End}
               </p>
               <p>
-                Actualmente formo parte del equipo de{" "}
-                <span className="text-foreground font-medium">Calipso (Visma)</span>,
-                donde contribuyo al desarrollo de soluciones empresariales de
-                gestión, combinando buenas prácticas de UI/UX con código limpio y
-                mantenible.
+                {t.about.p3Start}{" "}
+                <span className="text-foreground font-medium">{t.about.p3Company}</span>
+                {t.about.p3End}
               </p>
             </div>
 
             <div className="grid gap-4">
-              {highlights.map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.15 }}
-                  className="flex gap-4 p-4 rounded-lg bg-card border border-border hover:border-glow hover:glow-box transition-all duration-300"
-                >
-                  <div className="flex-shrink-0 w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                    <item.icon size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-foreground text-sm mb-1">
-                      {item.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm">{item.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
+              {t.about.highlights.map((item, i) => {
+                const Icon = icons[i];
+                return (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.15 }}
+                    className="flex gap-4 p-4 rounded-lg bg-card border border-border hover:border-glow hover:glow-box transition-all duration-300"
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center text-primary">
+                      <Icon size={20} aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-foreground text-sm mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </motion.div>
