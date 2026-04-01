@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, ChevronDown } from "lucide-react";
+import { GitBranch, Linkedin as LinkedinIcon, ChevronDown } from "lucide-react";
 
 const HeroSection = () => {
   return (
